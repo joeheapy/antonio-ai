@@ -1,38 +1,15 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
-import '../globals.css'
+import Link from 'next/link'
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const LandingPage = () => {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className="min-h-screen">
-          <header className="fixed w-full p-4 flex justify-end items-center">
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 shadow-md hover:shadow-lg">
-                  Sign In
-                </button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <main className="flex min-h-screen items-center justify-center">
-            {children}
-          </main>
-        </body>
-      </html>
-    </ClerkProvider>
+    <div className="flex items-center justify-center min-h-screen">
+      <Link href="/dashboard">
+        <button className="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+          Dashboard
+        </button>
+      </Link>
+    </div>
   )
 }
+
+export default LandingPage

@@ -1,35 +1,44 @@
-import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import {
+  ClerkProvider,
+  SignInButton,
+  SignOutButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 import './globals.css'
-import { ClerkProvider } from '@clerk/nextjs' // ClerkProvider, SignInButton, SignedIn, UserButton
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-})
-
-export const metadata: Metadata = {
-  title: 'Customer Journey Maker',
-  description: 'Accelerate customer journey design with AI',
-}
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body>
+          <header>
+            <SignedOut>
+              <div className="flex justify-end items-center gap-4 p-4">
+                <SignInButton mode="modal">
+                  <button className="px-4 py-2 font-semibold text-sm bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition-colors duration-200">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </div>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="flex justify-end items-center gap-4 p-4">
+                <SignOutButton>
+                  <button className="px-4 py-2 font-semibold text-sm bg-violet-600 text-white rounded-lg shadow-sm hover:bg-red-700 transition-colors duration-200">
+                    Sign Out
+                  </button>
+                </SignOutButton>
+                <UserButton />
+              </div>
+            </SignedIn>
+          </header>
           {children}
         </body>
       </html>
